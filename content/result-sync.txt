@@ -1,0 +1,2 @@
+Here is the result ya'll: Hello this is FIRST text file and Hello this is SECOND text file, {
+  flag:'a' }Here is the result ya'll: Hello this is FIRST text file and Hello this is SECOND text file
