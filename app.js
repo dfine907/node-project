@@ -1,9 +1,30 @@
-const { readFileSync, writeFileSync, write } = require('fs')
+const { readFile, writeFile } = require('fs')
+//with sync you need call back of course.
 
-const first = readFileSync('./content/first.txt', 'utf8')
-const second = readFileSync('./content/second.txt', 'utf8')
+readFile('./content/first.txt', 'utf8', (error, result) => {
+  if (error) {
+    console.log('Error!!:', error)
+    return
+  }
+  const first = result
 
-writeFileSync('./content/result-sync.txt', `Here is the result ya'll: ${first} and ${second}`, 
-  {flag:'a' })
-
-
+  readFile('./content/second.txt', 'utf8', (error, result) => {
+    if (error) {
+      console.log('Error!!:', error)
+      return
+    }
+    const second = result
+    writeFile(
+      './content/result-async.txt', `Here is the result ya'll: ${first} and ${second}`,
+      (error, result) => {
+       if(error) {
+        console.log(error)
+        return
+        
+       }
+       console.log("Async result:" , result)
+       
+      }
+    )
+  })
+})
