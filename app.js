@@ -1,30 +1,18 @@
-const { readFile, writeFile } = require('fs')
-//with sync you need call back of course.
+const http = require('http')
 
-readFile('./content/first.txt', 'utf8', (error, result) => {
-  if (error) {
-    console.log('Error!!:', error)
+const server = http.createServer((request, response) => {
+  if (request.url === '/') {
+    response.end('Welcome to our home page')
     return
   }
-  const first = result
-
-  readFile('./content/second.txt', 'utf8', (error, result) => {
-    if (error) {
-      console.log('Error!!:', error)
-      return
-    }
-    const second = result
-    writeFile(
-      './content/result-async.txt', `Here is the result ya'll: ${first} and ${second}`,
-      (error, result) => {
-       if(error) {
-        console.log(error)
-        return
-        
-       }
-       console.log("Async result:" , result)
-       
-      }
-    )
-  })
+  if(request.url === '/about'){
+    response.end("Here's our short history")
+    return
+  }
+  response.end(`<h1> Oops! </h1>
+    <p> We can't find that page you want</p>
+    <a href="/">Back Home </a>
+    `)
 })
+
+server.listen(5000)
